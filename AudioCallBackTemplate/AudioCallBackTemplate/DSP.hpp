@@ -21,9 +21,10 @@ public:
         micLevel = volume;
     }
     
-    void render(float * bufferL, int frames){
+    void render(float * bufferL, float * bufferR, int frames){
         for (int i=0; i<frames; ++i) {
             bufferL[i] = bufferL[i] * micLevel;
+            bufferR[i] = bufferL[i];  // Mic is mono on left channel, we send to right channel as well
         }
     }
     

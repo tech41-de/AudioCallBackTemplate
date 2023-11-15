@@ -44,7 +44,6 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     private(set) var audioChainIsBeingReconstructed: Bool = false
     let wrapper = Wrapper()
     
-    
     func setMicVolume(volume: Double){
         wrapper.setVolume(volume)
     }
@@ -61,59 +60,44 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         err = AudioUnitRender(_rioUnit!, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData)
         let ioPtr = UnsafeMutableAudioBufferListPointer(ioData)
         let mBufferL : AudioBuffer = ioPtr[0]
-        let dataPointer = UnsafeMutableRawPointer(mBufferL.mData)
+        let mBufferR : AudioBuffer = ioPtr[1]
+        let dataPointerL = UnsafeMutableRawPointer(mBufferL.mData)
+        let dataPointerR = UnsafeMutableRawPointer(mBufferR.mData)
         let count = Int(mBufferL.mDataByteSize) / 4
-        if let dptr = dataPointer {
-            let sampleArray = dptr.assumingMemoryBound(to: Float32.self)
-            wrapper.render(sampleArray, frames: Int32(count))
+        if let dptr = dataPointerL {
+            let dptrR = dataPointerR
+            let sampleArrayL = dptr.assumingMemoryBound(to: Float32.self)
+            let sampleArrayR = dptrR!.assumingMemoryBound(to: Float32.self)
+            wrapper.render(sampleArrayL, right: sampleArrayR, frames: Int32(count))
         }
         return err
     }
-    private var mY1: Float32 = 0.0
-    private var mX1: Float32 = 0.0
-    private final let kDefaultPoleDist: Float32 = 0.975
-    
-    func processInplace(_ ioData: UnsafeMutablePointer<Float32>, numFrames: UInt32) {
-        for i in 0..<Int(numFrames) {
-            let xCurr = ioData[i]
-            ioData[i] = ioData[i] - mX1 + (kDefaultPoleDist * mY1)
-            mX1 = xCurr
-            mY1 = ioData[i]
-        }
-    }
-    
+
     override init() {
         super.init()
         self.setupAudioChain()
     }
     
-    
     @objc func handleInterruption(_ notification: Notification) {
-//        do {
-            let theInterruptionType = (notification as NSNotification).userInfo![AVAudioSessionInterruptionTypeKey] as! UInt
-            NSLog("Session interrupted > --- %@ ---\n", theInterruptionType == AVAudioSession.InterruptionType.began.rawValue ? "Begin Interruption" : "End Interruption")
-            
-            if theInterruptionType == AVAudioSession.InterruptionType.began.rawValue {
-                self.stopIOUnit()
+        let theInterruptionType = (notification as NSNotification).userInfo![AVAudioSessionInterruptionTypeKey] as! UInt
+        NSLog("Session interrupted > --- %@ ---\n", theInterruptionType == AVAudioSession.InterruptionType.began.rawValue ? "Begin Interruption" : "End Interruption")
+        
+        if theInterruptionType == AVAudioSession.InterruptionType.began.rawValue {
+            self.stopIOUnit()
+        }
+        
+        if theInterruptionType == AVAudioSession.InterruptionType.ended.rawValue {
+            // make sure to activate the session
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+            } catch let error as NSError {
+                NSLog("AVAudioSession set active failed with error: %@", error)
+            } catch {
+                fatalError()
             }
-            
-            if theInterruptionType == AVAudioSession.InterruptionType.ended.rawValue {
-                // make sure to activate the session
-                do {
-                    try AVAudioSession.sharedInstance().setActive(true)
-                } catch let error as NSError {
-                    NSLog("AVAudioSession set active failed with error: %@", error)
-                } catch {
-                    fatalError()
-                }
-                
-                self.startIOUnit()
-            }
-//        } catch let e as CAXException {
-//            fputs("Error: \(e.mOperation) (\(e.formatError()))\n", stderr)
-//        }
+            self.startIOUnit()
+        }
     }
-    
     
     @objc func handleRouteChange(_ notification: Notification) {
         let reasonValue = (notification as NSNotification).userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
@@ -255,14 +239,12 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             //  Input is enabled on the input scope of the input element
             //  Output is enabled on the output scope of the output element
             
-            var one: UInt32 = 1
-            try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &one, SizeOf32(one)), "could not enable input on AURemoteIO")
-            try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one)), "could not enable output on AURemoteIO")
+            var two: UInt32 = 2
+            try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &two, SizeOf32(two)), "could not enable input on AURemoteIO")
+            try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &two, SizeOf32(two)), "could not enable output on AURemoteIO")
             
-            // Explicitly set the input and output client formats
-            // sample rate = 44100, num channels = 1, format = 32 bit floating point
-            
-            var ioFormat = CAStreamBasicDescription(sampleRate: 44100, numChannels: 1, pcmf: .float32, isInterleaved: false)
+
+            var ioFormat = CAStreamBasicDescription(sampleRate: 48000, numChannels: 2, pcmf: .float32, isInterleaved: false)
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat)), "couldn't set the input client format on AURemoteIO")
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat)), "couldn't set the output client format on AURemoteIO")
             

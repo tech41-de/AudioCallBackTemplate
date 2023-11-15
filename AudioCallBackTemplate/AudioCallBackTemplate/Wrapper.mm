@@ -22,8 +22,8 @@ DSP dsp;
     dsp.setMicLevel(volume);
 }
 
--(void) render:(float *) bufferL frames:(int) frames{
-    dsp.render(bufferL, frames);
+-(void) render:(float *) bufferL right:(float *) bufferR frames:(int) frames{
+    dsp.render(bufferL, bufferR, frames);
 }
 
 @end
