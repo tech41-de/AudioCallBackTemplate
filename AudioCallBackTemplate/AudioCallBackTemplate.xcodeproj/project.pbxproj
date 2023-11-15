@@ -19,6 +19,7 @@
 		4041DCBD2B04F0ED00C6E1FE /* NumTypes+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */; };
 		4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */; };
 		4041DCC32B04F51700C6E1FE /* Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCC22B04F51700C6E1FE /* Wrapper.mm */; };
+		409051492B0511FC00189119 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 409051482B0511FC00189119 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
 		4041DCC12B04F47200C6E1FE /* Wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wrapper.h; sourceTree = "<group>"; };
 		4041DCC22B04F51700C6E1FE /* Wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Wrapper.mm; sourceTree = "<group>"; };
+		409051482B0511FC00189119 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		4090514A2B05120800189119 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +57,8 @@
 		4041DC912B04E6A400C6E1FE = {
 			isa = PBXGroup;
 			children = (
+				409051482B0511FC00189119 /* LICENSE */,
+				4090514A2B05120800189119 /* README.md */,
 				4041DC9C2B04E6A400C6E1FE /* AudioCallBackTemplate */,
 				4041DC9B2B04E6A400C6E1FE /* Products */,
 			);
@@ -164,6 +169,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				409051492B0511FC00189119 /* LICENSE in Resources */,
 				4041DCA52B04E6A700C6E1FE /* Preview Assets.xcassets in Resources */,
 				4041DCA22B04E6A700C6E1FE /* Assets.xcassets in Resources */,
 			);

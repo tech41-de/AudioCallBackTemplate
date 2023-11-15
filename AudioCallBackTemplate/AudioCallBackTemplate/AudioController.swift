@@ -241,8 +241,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             //  Enable input and output on AURemoteIO
             //  Input is enabled on the input scope of the input element
             //  Output is enabled on the output scope of the output element
-            
-            var two: UInt32 = 2
+            var two: UInt32 = 2 // Stereo
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &two, SizeOf32(two)), "could not enable input on AURemoteIO")
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &two, SizeOf32(two)), "could not enable output on AURemoteIO")
             
