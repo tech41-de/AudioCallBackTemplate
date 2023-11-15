@@ -1,24 +1,16 @@
 //
 //  AudioController.swift
-//  aurioTouch
+//  AudioCallBackTemplate
 //
+//  Created by Mathias Dietrich info@tech41.de on 15.11.23.
+//
+// based on:
+//  aurioTouch
 //  Translated by OOPer in cooperation with shlab.jp, on 2015/1/31.
 //
 //
-/*
-
- Copyright (C) 2016 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
-
- Abstract:
- This class demonstrates the audio APIs used to capture audio data from the microphone and play it out to the speaker. It also demonstrates how to play system sounds
-
- */
-
-// Framework includes
 import AudioToolbox
 import AVFoundation
-
 
 @objc protocol AURenderCallbackDelegate {
     func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -45,15 +37,10 @@ in
     return result
 }
 
-
 @objc(AudioController)
 class AudioController: NSObject, AURenderCallbackDelegate {
     
     var _rioUnit: AudioUnit? = nil
-   // var _dcRejectionFilter: DCRejectionFilter!
-    var _audioPlayer: AVAudioPlayer?   // for button pressed sound
-    
-    var muteAudio: Bool
     private(set) var audioChainIsBeingReconstructed: Bool = false
     
     enum aurioTouchDisplayMode {
@@ -84,7 +71,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             let sampleArray = dptr.assumingMemoryBound(to: Float32.self)
             for i in 0..<(count) {
                     let x = sampleArray[i]
-                let y = x * 4.0
+                let y = x * 2.0
                     sampleArray[i] =  y
                 }
         }
@@ -104,7 +91,6 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     }
     
     override init() {
-        muteAudio = true
         super.init()
         self.setupAudioChain()
     }
@@ -181,10 +167,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         audioChainIsBeingReconstructed = true
         
         usleep(25000) //wait here for some time to ensure that we don't delete these objects while they are being accessed elsewhere
-        
-        // rebuild the audio chain
-        _audioPlayer = nil
-        
+
         self.setupAudioChain()
         self.startIOUnit()
         
@@ -221,7 +204,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             
             do {
                 // set the session's sample rate
-                try sessionInstance.setPreferredSampleRate(44100)
+                try sessionInstance.setPreferredSampleRate(48000)
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session's preferred sample rate")
             } catch {
@@ -314,7 +297,6 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         } catch _ {
             NSLog("Unknown error returned from setupIOUnit")
         }
-        
     }
     
     private func setupAudioChain() {

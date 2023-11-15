@@ -13,9 +13,8 @@ struct ContentView: View {
     @State private var volume = 0.8
     @State private var isEditing = false
     
-
-    
     let controller = AudioController()
+    
     
     var body: some View {
         VStack {
@@ -38,7 +37,7 @@ struct ContentView: View {
             Text("Best use with wired headphones for low latency and to avoid any feedback").font(.system(size: 16)).foregroundColor(.gray)
         }
         .padding().onAppear(){
-           
+            controller.startIOUnit()
         }
     }
 }
