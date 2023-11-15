@@ -13,6 +13,12 @@
 		4041DCA52B04E6A700C6E1FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4041DCA42B04E6A700C6E1FE /* Preview Assets.xcassets */; };
 		4041DCAC2B04E9C500C6E1FE /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCAB2B04E9C500C6E1FE /* AudioController.swift */; };
 		4041DCB02B04EB3400C6E1FE /* DSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCAE2B04EB3400C6E1FE /* DSP.cpp */; };
+		4041DCB52B04EFC100C6E1FE /* CAXException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCB42B04EFC100C6E1FE /* CAXException.swift */; };
+		4041DCB72B04EFDB00C6E1FE /* CABitOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCB62B04EFDB00C6E1FE /* CABitOperations.swift */; };
+		4041DCB92B04EFE300C6E1FE /* CADebugMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCB82B04EFE300C6E1FE /* CADebugMacros.swift */; };
+		4041DCBB2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */; };
+		4041DCBD2B04F0ED00C6E1FE /* NumTypes+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */; };
+		4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		4041DCAE2B04EB3400C6E1FE /* DSP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSP.cpp; sourceTree = "<group>"; };
 		4041DCAF2B04EB3400C6E1FE /* DSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DSP.hpp; sourceTree = "<group>"; };
 		4041DCB12B04EB7C00C6E1FE /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		4041DCB42B04EFC100C6E1FE /* CAXException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAXException.swift; sourceTree = "<group>"; };
+		4041DCB62B04EFDB00C6E1FE /* CABitOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CABitOperations.swift; sourceTree = "<group>"; };
+		4041DCB82B04EFE300C6E1FE /* CADebugMacros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CADebugMacros.swift; sourceTree = "<group>"; };
+		4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAStreamBasicDescription.swift; sourceTree = "<group>"; };
+		4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumTypes+Conversion.swift"; sourceTree = "<group>"; };
+		4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 		4041DC9C2B04E6A400C6E1FE /* AudioCallBackTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				4041DCC02B04F15600C6E1FE /* PublicUtility */,
 				4041DC9D2B04E6A400C6E1FE /* AudioCallBackTemplateApp.swift */,
 				4041DC9F2B04E6A400C6E1FE /* ContentView.swift */,
 				4041DCAB2B04E9C500C6E1FE /* AudioController.swift */,
@@ -77,6 +90,19 @@
 				4041DCA42B04E6A700C6E1FE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4041DCC02B04F15600C6E1FE /* PublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */,
+				4041DCB42B04EFC100C6E1FE /* CAXException.swift */,
+				4041DCB62B04EFDB00C6E1FE /* CABitOperations.swift */,
+				4041DCB82B04EFE300C6E1FE /* CADebugMacros.swift */,
+				4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */,
+				4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */,
+			);
+			name = PublicUtility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,9 +177,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4041DCA02B04E6A400C6E1FE /* ContentView.swift in Sources */,
+				4041DCBB2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift in Sources */,
+				4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */,
 				4041DCAC2B04E9C500C6E1FE /* AudioController.swift in Sources */,
 				4041DC9E2B04E6A400C6E1FE /* AudioCallBackTemplateApp.swift in Sources */,
 				4041DCB02B04EB3400C6E1FE /* DSP.cpp in Sources */,
+				4041DCBD2B04F0ED00C6E1FE /* NumTypes+Conversion.swift in Sources */,
+				4041DCB52B04EFC100C6E1FE /* CAXException.swift in Sources */,
+				4041DCB92B04EFE300C6E1FE /* CADebugMacros.swift in Sources */,
+				4041DCB72B04EFDB00C6E1FE /* CABitOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +338,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "AudioCallBackTemplate/AudioCallBackTemplate-Bridging-Header.h";
-				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OBJC_INTEROP_MODE = objc;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -340,7 +372,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "AudioCallBackTemplate/AudioCallBackTemplate-Bridging-Header.h";
-				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OBJC_INTEROP_MODE = objc;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
