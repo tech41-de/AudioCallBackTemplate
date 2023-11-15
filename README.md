@@ -20,5 +20,6 @@ Best with wired headphones like Apple EarPods, Bluetooth causes latency
 
 Drop me a line at: info@tech41.de and https://www.tech41.de
 
+Find the repository(Apache License) in Github at:
 https://github.com/tech41-de/AudioCallBackTemplate
 
