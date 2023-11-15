@@ -40,6 +40,8 @@ in
 @objc(AudioController)
 class AudioController: NSObject, AURenderCallbackDelegate {
     
+    var latency = 0.0
+    
     var _rioUnit: AudioUnit? = nil
     private(set) var audioChainIsBeingReconstructed: Bool = false
     let wrapper = Wrapper()
@@ -187,6 +189,8 @@ class AudioController: NSObject, AURenderCallbackDelegate {
                 fatalError()
             }
             
+            latency = sessionInstance.inputLatency + sessionInstance.outputLatency
+            
             // add interruption handler
             NotificationCenter.default.addObserver(self,
                 selector: #selector(self.handleInterruption(_:)),
@@ -218,7 +222,6 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         } catch _ {
             NSLog("Unknown error returned from setupAudioSession")
         }
-        
     }
     
     private func setupIOUnit() {
@@ -279,10 +282,10 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     }
     
     @discardableResult
-    func startIOUnit() -> OSStatus {
+    func startIOUnit() -> Double {
         let err = AudioOutputUnitStart(_rioUnit!)
         if err != 0 {NSLog("couldn't start AURemoteIO: %d", Int32(err))}
-        return err
+        return latency
     }
     
     @discardableResult

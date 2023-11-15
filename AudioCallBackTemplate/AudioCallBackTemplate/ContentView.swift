@@ -9,10 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let controller = AudioController()
+    let text = """
+Best use with wired headphones:
+- Low latency (Bluetooth causes latency)
+- Avoid any feedback
+"""
     
+    let controller = AudioController()
     @State private var volume = 0.8
     @State private var isEditing = false
+    @State private var latency = 0.0
     
     var body: some View {
         VStack {
@@ -24,14 +30,16 @@ struct ContentView: View {
                value: $volume,
                in: 0...1.6)
             Image(systemName: "mic").font(Font.title.weight(.ultraLight))
+            Spacer().frame(height: 20)
+            Text("Latency: \(latency * 1000) ms")
             Spacer().frame(height: 30)
-            Text("Best use with wired headphones for low latency and to avoid any feedback").font(.system(size: 16)).foregroundColor(.gray)
-        }.onChange(of: volume) { newVolume in
-            controller.setMicVolume(volume: newVolume)
+            Text(text).font(.system(size: 16)).foregroundColor(.gray)
+        }.onChange(of: volume) {
+            controller.setMicVolume(volume: volume)
         }
         .padding().onAppear(){
-            controller.startIOUnit()
-        }
+            latency = controller.startIOUnit()
+        }.frame(maxWidth:.infinity, maxHeight:.infinity).background(.black)
     }
 }
 
