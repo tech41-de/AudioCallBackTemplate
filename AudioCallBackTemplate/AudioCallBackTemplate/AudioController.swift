@@ -44,11 +44,6 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     private(set) var audioChainIsBeingReconstructed: Bool = false
     let wrapper = Wrapper()
     
-    enum aurioTouchDisplayMode {
-        case oscilloscopeWaveform
-        case oscilloscopeFFT
-        case spectrum
-    }
     
     func setMicVolume(volume: Double){
         wrapper.setVolume(volume)
@@ -70,11 +65,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         let count = Int(mBuffer.mDataByteSize) / 4
         if let dptr = dataPointer {
             let sampleArray = dptr.assumingMemoryBound(to: Float32.self)
-            for i in 0..<(count) {
-                    let x = sampleArray[i]
-                let y = x * 2.0
-                    sampleArray[i] =  y
-                }
+            wrapper.render(sampleArray, right: sampleArray, size: Int32(count))
         }
         return err
     }

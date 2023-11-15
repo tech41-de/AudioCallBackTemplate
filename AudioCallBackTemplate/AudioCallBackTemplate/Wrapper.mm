@@ -21,6 +21,10 @@
     
 }
 
+-(void) render:(float *) bufferL right: (float *) bufferR size:(int) size{
+    
+}
+
 @end
 
 

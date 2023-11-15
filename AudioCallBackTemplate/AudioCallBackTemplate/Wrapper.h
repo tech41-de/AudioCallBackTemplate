@@ -15,6 +15,9 @@
     
 }
 -(void) setVolume:(double) volume;
+-(void) setVolume:(double) volume;
+
+-(void) render:(float *) bufferL right: (float *) bufferR size:(int) size;
 
 @end
 

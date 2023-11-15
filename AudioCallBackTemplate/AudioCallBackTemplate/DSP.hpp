@@ -21,6 +21,13 @@ public:
         micLevel = volume;
     }
     
+    void render(float * bufferL, float * bufferR, int size){
+        for (int i=0; i<size; ++i) {
+            bufferL[i] = bufferL[i];
+            bufferR[i] = bufferR[i];
+        }
+    }
+    
 private:
     double sr = 0.0;
     double micLevel = 0.8;
