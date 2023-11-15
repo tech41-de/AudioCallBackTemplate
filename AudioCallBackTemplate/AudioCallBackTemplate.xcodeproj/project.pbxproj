@@ -11,6 +11,8 @@
 		4041DCA02B04E6A400C6E1FE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DC9F2B04E6A400C6E1FE /* ContentView.swift */; };
 		4041DCA22B04E6A700C6E1FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4041DCA12B04E6A700C6E1FE /* Assets.xcassets */; };
 		4041DCA52B04E6A700C6E1FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4041DCA42B04E6A700C6E1FE /* Preview Assets.xcassets */; };
+		4041DCAC2B04E9C500C6E1FE /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCAB2B04E9C500C6E1FE /* AudioController.swift */; };
+		4041DCB02B04EB3400C6E1FE /* DSP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCAE2B04EB3400C6E1FE /* DSP.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,11 @@
 		4041DC9F2B04E6A400C6E1FE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4041DCA12B04E6A700C6E1FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4041DCA42B04E6A700C6E1FE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4041DCAB2B04E9C500C6E1FE /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
+		4041DCAD2B04EB3400C6E1FE /* AudioCallBackTemplate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioCallBackTemplate-Bridging-Header.h"; sourceTree = "<group>"; };
+		4041DCAE2B04EB3400C6E1FE /* DSP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSP.cpp; sourceTree = "<group>"; };
+		4041DCAF2B04EB3400C6E1FE /* DSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DSP.hpp; sourceTree = "<group>"; };
+		4041DCB12B04EB7C00C6E1FE /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +60,13 @@
 			children = (
 				4041DC9D2B04E6A400C6E1FE /* AudioCallBackTemplateApp.swift */,
 				4041DC9F2B04E6A400C6E1FE /* ContentView.swift */,
+				4041DCAB2B04E9C500C6E1FE /* AudioController.swift */,
 				4041DCA12B04E6A700C6E1FE /* Assets.xcassets */,
 				4041DCA32B04E6A700C6E1FE /* Preview Content */,
+				4041DCAE2B04EB3400C6E1FE /* DSP.cpp */,
+				4041DCAF2B04EB3400C6E1FE /* DSP.hpp */,
+				4041DCAD2B04EB3400C6E1FE /* AudioCallBackTemplate-Bridging-Header.h */,
+				4041DCB12B04EB7C00C6E1FE /* module.modulemap */,
 			);
 			path = AudioCallBackTemplate;
 			sourceTree = "<group>";
@@ -99,6 +111,7 @@
 				TargetAttributes = {
 					4041DC992B04E6A400C6E1FE = {
 						CreatedOnToolsVersion = 15.0.1;
+						LastSwiftMigration = 1500;
 					};
 				};
 			};
@@ -138,7 +151,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4041DCA02B04E6A400C6E1FE /* ContentView.swift in Sources */,
+				4041DCAC2B04E9C500C6E1FE /* AudioController.swift in Sources */,
 				4041DC9E2B04E6A400C6E1FE /* AudioCallBackTemplateApp.swift in Sources */,
+				4041DCB02B04EB3400C6E1FE /* DSP.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,12 +284,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AudioCallBackTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = W2V29MV569;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Testing Audio";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +305,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.tech41.audiocallback.changeme.AudioCallBackTemplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioCallBackTemplate/AudioCallBackTemplate-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -298,12 +318,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AudioCallBackTemplate/Preview Content\"";
 				DEVELOPMENT_TEAM = W2V29MV569;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Testing Audio";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -317,6 +339,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.tech41.audiocallback.changeme.AudioCallBackTemplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioCallBackTemplate/AudioCallBackTemplate-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

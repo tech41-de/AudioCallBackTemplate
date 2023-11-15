@@ -1,0 +1,12 @@
+//
+//  module.modulemap
+//  AudioCallBackTemplate
+//
+//  Created by Mathias Dietrich on 15.11.23.
+//
+
+module DspModule {
+    header "DSP.hpp"
+
+    export *
+}
