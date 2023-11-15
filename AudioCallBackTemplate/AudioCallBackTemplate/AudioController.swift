@@ -60,12 +60,12 @@ class AudioController: NSObject, AURenderCallbackDelegate {
         var err: OSStatus = noErr
         err = AudioUnitRender(_rioUnit!, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData)
         let ioPtr = UnsafeMutableAudioBufferListPointer(ioData)
-        let mBuffer : AudioBuffer = ioPtr[0]
-        let dataPointer = UnsafeMutableRawPointer(mBuffer.mData)
-        let count = Int(mBuffer.mDataByteSize) / 4
+        let mBufferL : AudioBuffer = ioPtr[0]
+        let dataPointer = UnsafeMutableRawPointer(mBufferL.mData)
+        let count = Int(mBufferL.mDataByteSize) / 4
         if let dptr = dataPointer {
             let sampleArray = dptr.assumingMemoryBound(to: Float32.self)
-            wrapper.render(sampleArray, right: sampleArray, size: Int32(count))
+            wrapper.render(sampleArray, frames: Int32(count))
         }
         return err
     }

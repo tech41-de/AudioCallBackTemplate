@@ -16,13 +16,14 @@
 @end
 
 @implementation Wrapper
+DSP dsp;
 
 -(void) setVolume:(double) volume{
-    
+    dsp.setMicLevel(volume);
 }
 
--(void) render:(float *) bufferL right: (float *) bufferR size:(int) size{
-    
+-(void) render:(float *) bufferL frames:(int) frames{
+    dsp.render(bufferL, frames);
 }
 
 @end

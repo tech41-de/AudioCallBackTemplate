@@ -21,10 +21,9 @@ public:
         micLevel = volume;
     }
     
-    void render(float * bufferL, float * bufferR, int size){
-        for (int i=0; i<size; ++i) {
-            bufferL[i] = bufferL[i];
-            bufferR[i] = bufferR[i];
+    void render(float * bufferL, int frames){
+        for (int i=0; i<frames; ++i) {
+            bufferL[i] = bufferL[i] * micLevel;
         }
     }
     
