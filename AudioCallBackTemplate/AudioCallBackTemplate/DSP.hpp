@@ -9,7 +9,9 @@
 #define DSP_hpp
 
 #include <stdio.h>
+
 class DSP{
+    
 public:
     void setup(double sampleRate){
         sr = sampleRate;
@@ -22,6 +24,7 @@ public:
 private:
     double sr = 0.0;
     double micLevel = 0.8;
+    
 };
 
 #endif /* DSP_hpp */

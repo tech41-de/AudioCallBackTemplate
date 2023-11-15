@@ -19,6 +19,7 @@
 		4041DCBB2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */; };
 		4041DCBD2B04F0ED00C6E1FE /* NumTypes+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */; };
 		4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */; };
+		4041DCC32B04F51700C6E1FE /* Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCC22B04F51700C6E1FE /* Wrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,13 +32,14 @@
 		4041DCAD2B04EB3400C6E1FE /* AudioCallBackTemplate-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AudioCallBackTemplate-Bridging-Header.h"; sourceTree = "<group>"; };
 		4041DCAE2B04EB3400C6E1FE /* DSP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DSP.cpp; sourceTree = "<group>"; };
 		4041DCAF2B04EB3400C6E1FE /* DSP.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DSP.hpp; sourceTree = "<group>"; };
-		4041DCB12B04EB7C00C6E1FE /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		4041DCB42B04EFC100C6E1FE /* CAXException.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAXException.swift; sourceTree = "<group>"; };
 		4041DCB62B04EFDB00C6E1FE /* CABitOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CABitOperations.swift; sourceTree = "<group>"; };
 		4041DCB82B04EFE300C6E1FE /* CADebugMacros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CADebugMacros.swift; sourceTree = "<group>"; };
 		4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAStreamBasicDescription.swift; sourceTree = "<group>"; };
 		4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumTypes+Conversion.swift"; sourceTree = "<group>"; };
 		4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
+		4041DCC12B04F47200C6E1FE /* Wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wrapper.h; sourceTree = "<group>"; };
+		4041DCC22B04F51700C6E1FE /* Wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Wrapper.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +81,8 @@
 				4041DCAE2B04EB3400C6E1FE /* DSP.cpp */,
 				4041DCAF2B04EB3400C6E1FE /* DSP.hpp */,
 				4041DCAD2B04EB3400C6E1FE /* AudioCallBackTemplate-Bridging-Header.h */,
-				4041DCB12B04EB7C00C6E1FE /* module.modulemap */,
+				4041DCC12B04F47200C6E1FE /* Wrapper.h */,
+				4041DCC22B04F51700C6E1FE /* Wrapper.mm */,
 			);
 			path = AudioCallBackTemplate;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4041DCC32B04F51700C6E1FE /* Wrapper.mm in Sources */,
 				4041DCA02B04E6A400C6E1FE /* ContentView.swift in Sources */,
 				4041DCBB2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift in Sources */,
 				4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */,

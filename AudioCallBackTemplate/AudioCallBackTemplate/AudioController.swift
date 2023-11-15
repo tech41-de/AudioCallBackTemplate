@@ -42,6 +42,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     
     var _rioUnit: AudioUnit? = nil
     private(set) var audioChainIsBeingReconstructed: Bool = false
+    let wrapper = Wrapper()
     
     enum aurioTouchDisplayMode {
         case oscilloscopeWaveform
@@ -50,7 +51,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
     }
     
     func setMicVolume(volume: Double){
-        
+        wrapper.setVolume(volume)
     }
     
     // Render callback function
