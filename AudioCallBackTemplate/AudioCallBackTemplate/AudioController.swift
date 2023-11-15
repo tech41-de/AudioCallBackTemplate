@@ -41,6 +41,7 @@ in
 class AudioController: NSObject, AURenderCallbackDelegate {
     
     var latency = 0.0
+    var sampleRate = 0
     
     var _rioUnit: AudioUnit? = nil
     private(set) var audioChainIsBeingReconstructed: Bool = false
@@ -170,8 +171,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
                 fatalError()
             }
             
-            // set the buffer duration to 5 ms
-            let bufferDuration: TimeInterval = 0.005
+            let bufferDuration: TimeInterval = 1.0 / 1000.0 // in secconds
             do {
                 try sessionInstance.setPreferredIOBufferDuration(bufferDuration)
             } catch let error as NSError {
@@ -212,6 +212,8 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             do {
                 // activate the audio session
                 try sessionInstance.setActive(true)
+                latency = sessionInstance.inputLatency + sessionInstance.outputLatency
+                sampleRate = Int(sessionInstance.sampleRate)
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session active")
             } catch {

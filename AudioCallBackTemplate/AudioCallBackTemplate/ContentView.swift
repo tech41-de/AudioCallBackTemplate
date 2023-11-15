@@ -19,6 +19,7 @@ Best use with wired headphones:
     @State private var volume = 0.8
     @State private var isEditing = false
     @State private var latency = 0.0
+    @State private var sampleRate = 0
     
     var body: some View {
         VStack {
@@ -28,10 +29,11 @@ Best use with wired headphones:
                 .foregroundColor(isEditing ? .red : .blue)
             Slider(
                value: $volume,
-               in: 0...1.6)
+               in: 0...3.0) // this one can go to eleven, one louder ;-) use careful!
             Image(systemName: "mic").font(Font.title.weight(.ultraLight))
             Spacer().frame(height: 20)
             Text("Latency: \(latency * 1000) ms")
+            Text("Sample Rate:" + String(sampleRate))
             Spacer().frame(height: 30)
             Text(text).font(.system(size: 16)).foregroundColor(.gray)
         }.onChange(of: volume) {
@@ -39,6 +41,7 @@ Best use with wired headphones:
         }
         .padding().onAppear(){
             latency = controller.startIOUnit()
+            sampleRate = controller.sampleRate
         }.frame(maxWidth:.infinity, maxHeight:.infinity).background(.black)
     }
 }
