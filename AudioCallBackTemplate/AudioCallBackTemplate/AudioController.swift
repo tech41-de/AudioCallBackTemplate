@@ -38,10 +38,18 @@ in
 }
 
 @objc(AudioController)
-class AudioController: NSObject, AURenderCallbackDelegate {
+class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     
-    var latency = 0.0
-    var sampleRate = 0
+    @Published var latency = 0.0
+    @Published var sampleRate = 0
+    @Published var isOnSpeaker = false
+    @Published var isHeadphonesConnected = false
+    @Published var inputDeviceName : String = ""
+    @Published var inputDeviceId : NSNumber = 0
+    @Published var outputDeviceName : String = ""
+    @Published var outputDeviceId : NSNumber = 0
+    @Published var inputs : [String] = []
+    @Published var outputs : [String] = []
     
     var _rioUnit: AudioUnit? = nil
     private(set) var audioChainIsBeingReconstructed: Bool = false
@@ -171,7 +179,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
                 fatalError()
             }
             
-            let bufferDuration: TimeInterval = 1.0 / 1000.0 // in secconds
+            let bufferDuration: TimeInterval = 1.0 / 1000.0 // Secconds
             do {
                 try sessionInstance.setPreferredIOBufferDuration(bufferDuration)
             } catch let error as NSError {
@@ -182,7 +190,7 @@ class AudioController: NSObject, AURenderCallbackDelegate {
             
             do {
                 // set the session's sample rate
-                try sessionInstance.setPreferredSampleRate(48000)
+                try sessionInstance.setPreferredSampleRate(48000) // Samples per second
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session's preferred sample rate")
             } catch {
