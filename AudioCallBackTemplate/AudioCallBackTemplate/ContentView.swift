@@ -52,19 +52,21 @@ Best use with wired headphones:
                 }
                 .pickerStyle(.segmented).foregroundColor(.white).font(.system(size: 16))
                 
-                Text("outputDeviceName \(controller.outputDeviceName)").font(.system(size: 26)).foregroundColor(.blue)
-                Toggle("Speaker", isOn: $controller.isOnSpeaker).padding(.trailing, 5).onChange(of: controller.isOnSpeaker) { _old, _isOn in
-                    controller.setSpeaker(isSpeaker: _isOn)
+                Text("Output Device").foregroundColor(.blue).font(.system(size: 16))
+                Text("\(controller.outputDeviceName)").font(.system(size: 26)).foregroundColor(.blue)
+    
+                Toggle("Speaker", isOn: $controller.isOnSpeaker).padding(.trailing, 5).onChange(of: controller.isOnSpeaker) {old,  _isOn in
+                    setSpeaker(isSpeaker:controller.isOnSpeaker)
+                    controller.getDevices()
                 }
                 
-                
                 Spacer().frame(height: 30)
-                Text("isOnSpeaker \(controller.isOnSpeaker.description)").font(.system(size: 16)).foregroundColor(.blue)
-                Text("isHeadphonesConnected \(controller.isHeadphonesConnected.description)").font(.system(size: 16)).foregroundColor(.blue)
-                Text("inputDeviceName \(controller.inputDeviceName)").font(.system(size: 16)).foregroundColor(.blue)
-                Text("inputDeviceId \(controller.inputDeviceId)").font(.system(size: 16)).foregroundColor(.blue)
+               // Text("isOnSpeaker \(controller.isOnSpeaker.description)").font(.system(size: 16)).foregroundColor(.blue)
+                Text("isHeadphonesConnected: \(controller.isHeadphonesConnected.description)").font(.system(size: 16)).foregroundColor(.blue)
+               // Text("inputDeviceName \(controller.inputDeviceName)").font(.system(size: 16)).foregroundColor(.blue)
+                //Text("inputDeviceId \(controller.inputDeviceId)").font(.system(size: 16)).foregroundColor(.blue)
                 
-                Text("outputDeviceId \(controller.outputDeviceId)").font(.system(size: 16)).foregroundColor(.blue)
+                //Text("outputDeviceId \(controller.outputDeviceId)").font(.system(size: 16)).foregroundColor(.blue)
                 
                 Spacer().frame(height: 30)
                 Text(text).font(.system(size: 16)).foregroundColor(.gray)

@@ -12,10 +12,10 @@ Our template is as simple as possible:
 - Setup of the RemoteIO Audio Unit in Swift
 - Manages the AVAudioSession when interrupted (phone call, etc.)
 
-On iPhone 12 we typically achieve round trip latencies under 4 ms, which is considered very good.
-The microphone sound loud, near and clear.
+On iPhone 12 we typically achieve round trip latencies under 4 ms using wired headphones and only 2.5 ms using a Scarlet USB Interface!
+The microphone sound is loud and clear.
 
-Please test on hardware, audio does not work on the emulator.
+Please test always on hardware, audio is not working on the emulator.
 Best with wired headphones like Apple EarPods.
 Bluetooth causes latency.
 

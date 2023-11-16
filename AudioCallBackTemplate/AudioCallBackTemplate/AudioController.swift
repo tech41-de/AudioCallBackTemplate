@@ -45,9 +45,9 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     @Published var isOnSpeaker = false
     @Published var isHeadphonesConnected = false
     @Published var inputDeviceName : String = ""
-    @Published var inputDeviceId : NSNumber = 0
+    @Published var inputDeviceId : String = ""
     @Published var outputDeviceName : String = ""
-    @Published var outputDeviceId : NSNumber = 0
+    @Published var outputDeviceId : String = ""
     @Published var inputs : [String] = []
     @Published var outputs : [String] = []
     
@@ -104,7 +104,6 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             }else{
                 try sessionInstance.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
             }
-           isOnSpeaker = isSpeaker
         }catch{
             print(error.localizedDescription)
         }
@@ -130,6 +129,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     func setPreferredInput(port: AVAudioSessionPortDescription) {
           do {
               try AVAudioSession.sharedInstance().setPreferredInput(port)
+
           } catch let error as NSError {
               print("audioSession error change to input: \(port.portName) with error: \(error.localizedDescription)")
           }
@@ -215,7 +215,6 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         audioChainIsBeingReconstructed = false
     }
     
-
     func getDevices(){
         inputs.removeAll()
         guard let availableInputs = AVAudioSession.sharedInstance().availableInputs else {
@@ -228,17 +227,17 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }
         if(sessionInstance.currentRoute.inputs.first != nil){
             inputDeviceName =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.portName
-            //inputDeviceId =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.uid
+            inputDeviceId =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.uid
         }
         
-       outputs.removeAll()
-       let availableOutputs =  sessionInstance.currentRoute.outputs
+        outputs.removeAll()
+        let availableOutputs =  sessionInstance.currentRoute.outputs
         for audioPort in availableOutputs {
            outputs.append(audioPort.portName)
         }
         if(AVAudioSession.sharedInstance().currentRoute.outputs.first != nil){
             outputDeviceName =  sessionInstance.currentRoute.outputs.first!.portName
-            //outputDeviceId =  AVAudioSession.sharedInstance().currentRoute.outputs.first!.uid
+            outputDeviceId =  AVAudioSession.sharedInstance().currentRoute.outputs.first!.uid
         }
     }
     
