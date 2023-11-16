@@ -61,13 +61,8 @@ Best use with wired headphones:
                 }
                 
                 Spacer().frame(height: 30)
-               // Text("isOnSpeaker \(controller.isOnSpeaker.description)").font(.system(size: 16)).foregroundColor(.blue)
                 Text("isHeadphonesConnected: \(controller.isHeadphonesConnected.description)").font(.system(size: 16)).foregroundColor(.blue)
-                Text("inputDeviceName \(controller.inputDeviceName)").font(.system(size: 16)).foregroundColor(.blue)
-                //Text("inputDeviceId \(controller.inputDeviceId)").font(.system(size: 16)).foregroundColor(.blue)
-                
-                //Text("outputDeviceId \(controller.outputDeviceId)").font(.system(size: 16)).foregroundColor(.blue)
-                
+
                 Spacer().frame(height: 30)
                 Text(text).font(.system(size: 16)).foregroundColor(.gray)
             }.onChange(of: volume) {

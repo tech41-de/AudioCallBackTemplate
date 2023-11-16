@@ -19,6 +19,8 @@ Please test always on hardware, audio is not working on the emulator.
 Best with wired headphones like Apple EarPods.
 Bluetooth causes latency.
 
+![ezcv logo](https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/AudioCallBackTemplate.png)
+
 Drop me a line at: 
 mathias.dietrich@tech41.de
 

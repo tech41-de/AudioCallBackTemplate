@@ -41,6 +41,7 @@
 		4041DCC22B04F51700C6E1FE /* Wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Wrapper.mm; sourceTree = "<group>"; };
 		409051482B0511FC00189119 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4090514A2B05120800189119 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		409BE6AB2B0662A00071BE29 /* AudioCallbackTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AudioCallbackTemplate.png; path = ../../../../Desktop/AudioCallbackTemplate.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 		4041DC912B04E6A400C6E1FE = {
 			isa = PBXGroup;
 			children = (
+				409BE6AB2B0662A00071BE29 /* AudioCallbackTemplate.png */,
 				409051482B0511FC00189119 /* LICENSE */,
 				4090514A2B05120800189119 /* README.md */,
 				4041DC9C2B04E6A400C6E1FE /* AudioCallBackTemplate */,
