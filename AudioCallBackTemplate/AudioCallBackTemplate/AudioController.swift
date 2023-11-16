@@ -41,7 +41,7 @@ in
 class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     
     @Published var latency = 0.0
-    @Published var sampleRate = 0
+    @Published var sampleRate = 48000
     @Published var isOnSpeaker = false
     @Published var isHeadphonesConnected = false
     @Published var inputDeviceName : String = ""
@@ -51,15 +51,19 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     @Published var inputs : [String] = []
     @Published var outputs : [String] = []
     
+    // Configure the audio session
+    let sessionInstance = AVAudioSession.sharedInstance()
+    
     var _rioUnit: AudioUnit? = nil
     private(set) var audioChainIsBeingReconstructed: Bool = false
     let wrapper = Wrapper()
     
-    func setMicVolume(volume: Double){
-        wrapper.setVolume(volume)
+    override init() {
+        super.init()
+        self.setupAudioChain()
     }
     
-    // Render callback function
+    // Render callback function - here we receive the samples to pass on to our DSP code
     func performRender(
         _ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
         inTimeStamp: UnsafePointer<AudioTimeStamp>,
@@ -83,12 +87,55 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }
         return err
     }
-
-    override init() {
-        super.init()
-        self.setupAudioChain()
+    
+    func updateView(){
+        objectWillChange.send()
     }
     
+    // Example of calling DSP code from the UI
+    func setMicVolume(volume: Double){
+        wrapper.setVolume(volume)
+    }
+    
+    func setSpeaker(isSpeaker:Bool){
+        do{
+            if(isSpeaker){
+                try sessionInstance.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+            }else{
+                try sessionInstance.overrideOutputAudioPort(AVAudioSession.PortOverride.none)
+            }
+           isOnSpeaker = isSpeaker
+        }catch{
+            print(error.localizedDescription)
+        }
+    }
+
+    func isCurrentOutput(portType: AVAudioSession.Port) -> Bool {
+        AVAudioSession.sharedInstance().currentRoute.outputs.contains(where: { $0.portType == portType })
+    }
+    
+    func setInputDevice(name:String){
+        guard let availableInputs = AVAudioSession.sharedInstance().availableInputs else {
+            print("No inputs available ")
+            return
+        }
+        
+        for audioPort in availableInputs {
+            if(audioPort.portName == name){
+                setPreferredInput(port:audioPort)
+            }
+        }
+    }
+    
+    func setPreferredInput(port: AVAudioSessionPortDescription) {
+          do {
+              try AVAudioSession.sharedInstance().setPreferredInput(port)
+          } catch let error as NSError {
+              print("audioSession error change to input: \(port.portName) with error: \(error.localizedDescription)")
+          }
+    }
+    
+    // handles interruption of AVAudioSession, for example an incoming phone call. After the call we are restarting the AVAudioSession
     @objc func handleInterruption(_ notification: Notification) {
         let theInterruptionType = (notification as NSNotification).userInfo![AVAudioSessionInterruptionTypeKey] as! UInt
         NSLog("Session interrupted > --- %@ ---\n", theInterruptionType == AVAudioSession.InterruptionType.began.rawValue ? "Begin Interruption" : "End Interruption")
@@ -100,7 +147,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         if theInterruptionType == AVAudioSession.InterruptionType.ended.rawValue {
             // make sure to activate the session
             do {
-                try AVAudioSession.sharedInstance().setActive(true)
+                try sessionInstance.setActive(true)
             } catch let error as NSError {
                 NSLog("AVAudioSession set active failed with error: %@", error)
             } catch {
@@ -110,10 +157,12 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }
     }
     
+    // Called when the user changes the Audio device, for example pluging in headphones
     @objc func handleRouteChange(_ notification: Notification) {
         let reasonValue = (notification as NSNotification).userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         let routeDescription = (notification as NSNotification).userInfo![AVAudioSessionRouteChangePreviousRouteKey] as! AVAudioSessionRouteDescription?
         
+        // logging the change
         NSLog("Route change:")
         if let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) {
             switch reason {
@@ -147,29 +196,58 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             NSLog("Current route:\n")
             NSLog("%@\n", AVAudioSession.sharedInstance().currentRoute)
         }
+        resetChain()
+        getDevices()
+        updateView()
     }
     
+    // Under rare circumstances the system terminates and restarts its media services daemon.
     @objc func handleMediaServerReset(_ notification: Notification) {
         NSLog("Media server has reset")
+        resetChain()
+    }
+    
+    func resetChain(){
         audioChainIsBeingReconstructed = true
-        
-        usleep(25000) //wait here for some time to ensure that we don't delete these objects while they are being accessed elsewhere
-
+        usleep(25000) // required
         self.setupAudioChain()
         self.startIOUnit()
-        
         audioChainIsBeingReconstructed = false
+    }
+    
+
+    func getDevices(){
+        inputs.removeAll()
+        guard let availableInputs = AVAudioSession.sharedInstance().availableInputs else {
+            print("No inputs available ")
+            return
+        }
+        
+        for audioPort in availableInputs {
+            inputs.append(audioPort.portName)
+        }
+        if(sessionInstance.currentRoute.inputs.first != nil){
+            inputDeviceName =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.portName
+            //inputDeviceId =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.uid
+        }
+        
+       outputs.removeAll()
+       let availableOutputs =  sessionInstance.currentRoute.outputs
+        for audioPort in availableOutputs {
+           outputs.append(audioPort.portName)
+        }
+        if(AVAudioSession.sharedInstance().currentRoute.outputs.first != nil){
+            outputDeviceName =  sessionInstance.currentRoute.outputs.first!.portName
+            //outputDeviceId =  AVAudioSession.sharedInstance().currentRoute.outputs.first!.uid
+        }
     }
     
     private func setupAudioSession() {
         do {
-            // Configure the audio session
-            let sessionInstance = AVAudioSession.sharedInstance()
-            
             // we are going to play and record so we pick that category
             do {
                 if #available(iOS 10.0, *) {
-                    try sessionInstance.setCategory(.playAndRecord, mode: .default)
+                    try sessionInstance.setCategory(.playAndRecord,mode: .default,  options: [.mixWithOthers, .allowBluetoothA2DP])
                 } else {
                     try sessionInstance.setCategory(.playAndRecord)
                 }
@@ -196,8 +274,6 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             } catch {
                 fatalError()
             }
-            
-            latency = sessionInstance.inputLatency + sessionInstance.outputLatency
             
             // add interruption handler
             NotificationCenter.default.addObserver(self,
@@ -256,7 +332,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &two, SizeOf32(two)), "could not enable output on AURemoteIO")
             
 
-            var ioFormat = CAStreamBasicDescription(sampleRate: 48000, numChannels: 2, pcmf: .float32, isInterleaved: false)
+            var ioFormat = CAStreamBasicDescription(sampleRate: Double(sampleRate), numChannels: 2, pcmf: .float32, isInterleaved: false)
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat)), "couldn't set the input client format on AURemoteIO")
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat)), "couldn't set the output client format on AURemoteIO")
             
@@ -307,5 +383,4 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     var sessionSampleRate: Double {
         return AVAudioSession.sharedInstance().sampleRate
     }
-    
 }
