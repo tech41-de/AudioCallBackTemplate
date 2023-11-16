@@ -12,6 +12,12 @@
 import AudioToolbox
 import AVFoundation
 
+class DataModel{
+   
+}
+
+
+
 @objc protocol AURenderCallbackDelegate {
     func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
         inTimeStamp: UnsafePointer<AudioTimeStamp>,
@@ -39,12 +45,12 @@ in
 
 @objc(AudioController)
 class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
-    
+    @Published var inputDeviceName : String = ""
     @Published var latency = 0.0
     @Published var sampleRate = 48000
     @Published var isOnSpeaker = false
     @Published var isHeadphonesConnected = false
-    @Published var inputDeviceName : String = ""
+    
     @Published var inputDeviceId : String = ""
     @Published var outputDeviceName : String = ""
     @Published var outputDeviceId : String = ""
@@ -162,14 +168,26 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         let reasonValue = (notification as NSNotification).userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
         let routeDescription = (notification as NSNotification).userInfo![AVAudioSessionRouteChangePreviousRouteKey] as! AVAudioSessionRouteDescription?
         
+        guard let userInfo = notification.userInfo,
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
+                return
+        }
+        
         // logging the change
         NSLog("Route change:")
         if let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) {
             switch reason {
             case .newDeviceAvailable:
                 NSLog("     NewDeviceAvailable")
+                let session = AVAudioSession.sharedInstance()
+                isHeadphonesConnected = hasHeadphones(in: session.currentRoute)
             case .oldDeviceUnavailable:
                 NSLog("     OldDeviceUnavailable")
+                if let previousRoute =
+                    userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
+                    isHeadphonesConnected = hasHeadphones(in: previousRoute)
+                }
             case .categoryChange:
                 NSLog("     CategoryChange")
                 NSLog(" New Category: %@", AVAudioSession.sharedInstance().category.rawValue)
@@ -205,6 +223,11 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     @objc func handleMediaServerReset(_ notification: Notification) {
         NSLog("Media server has reset")
         resetChain()
+    }
+    
+    func hasHeadphones(in routeDescription: AVAudioSessionRouteDescription) -> Bool {
+        // Filter the outputs to only those with a port type of headphones.
+        return !routeDescription.outputs.filter({$0.portType == .headphones}).isEmpty
     }
     
     func resetChain(){
