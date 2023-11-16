@@ -23,7 +23,7 @@ Bluetooth causes latency.
 
 Drop me a line at: mathias.dietrich@tech41.de
 
-Visit our company TECH41: https://www.tech41.de
+Visit our company TECH41 GmbH: https://www.tech41.de
 
 Find the repository (Apache License): https://github.com/tech41-de/AudioCallBackTemplate
 
