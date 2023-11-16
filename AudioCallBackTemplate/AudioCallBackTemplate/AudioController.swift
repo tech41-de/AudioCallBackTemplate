@@ -237,18 +237,14 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             return
         }
         audioChainIsBeingReconstructed = true
-        do{
-            if(_rioUnit != nil){
-                stopIOUnit()
-            }
-            _rioUnit = nil
-            
-           // usleep(25000) // required
-            self.setupAudioChain()
-            self.startIOUnit()
-        }catch{
-            print(error.localizedDescription)
+        if(_rioUnit != nil){
+            stopIOUnit()
         }
+        _rioUnit = nil
+        
+       // usleep(25000) // required
+        self.setupAudioChain()
+        self.startIOUnit()
         audioChainIsBeingReconstructed = false
     }
     
