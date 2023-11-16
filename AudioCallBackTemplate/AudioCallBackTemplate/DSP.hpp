@@ -29,8 +29,20 @@ public:
      */
     void render(float * bufferL, float * bufferR, int frames){
         for (int i=0; i<frames; ++i) {
-            bufferL[i] = bufferL[i] * micLevel; //
-            bufferR[i] = bufferL[i];  // Mic comes in mono on left channel, we copy to right channel as well
+            float sample = bufferL[i] * micLevel; //
+            if(bufferL[i] <= 1.0 || bufferL[i] >= -1.0){ // render guard - not absolutely necxcesary if the DSP is correct staying in bounds -1.0 to 1.0
+                bufferL[i] = sample;
+                bufferR[i] = sample; // Mic comes in mono on left channel, we copy to right channel as well
+            }else{
+                // we receive Samples outside the correct range, hard limiting to -1.0 and 1.0
+                if (sample > 0){
+                    bufferL[i] = 1.0;
+                    bufferR[i] = 1.0;
+                }else{
+                    bufferL[i] = -1.0;
+                    bufferR[i] = -1.0;
+                }
+            }
         }
     }
     

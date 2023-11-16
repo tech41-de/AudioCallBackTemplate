@@ -73,7 +73,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         ioData: UnsafeMutablePointer<AudioBufferList>) -> OSStatus
     {
         var err: OSStatus = noErr
-        if _rioUnit == nil{
+        if audioChainIsBeingReconstructed{
             return err
         }
        
@@ -135,7 +135,6 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     func setPreferredInput(port: AVAudioSessionPortDescription) {
           do {
               try AVAudioSession.sharedInstance().setPreferredInput(port)
-
           } catch let error as NSError {
               print("audioSession error change to input: \(port.portName) with error: \(error.localizedDescription)")
           }
@@ -234,11 +233,22 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     }
     
     func resetChain(){
-
+        if audioChainIsBeingReconstructed {
+            return
+        }
         audioChainIsBeingReconstructed = true
-        usleep(25000) // required
-        self.setupAudioChain()
-        self.startIOUnit()
+        do{
+            if(_rioUnit != nil){
+                stopIOUnit()
+            }
+            _rioUnit = nil
+            
+            usleep(25000) // required
+            self.setupAudioChain()
+            self.startIOUnit()
+        }catch{
+            print(error.localizedDescription)
+        }
         audioChainIsBeingReconstructed = false
     }
     
