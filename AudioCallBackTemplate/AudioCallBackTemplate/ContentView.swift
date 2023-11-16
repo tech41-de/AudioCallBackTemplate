@@ -31,7 +31,7 @@ Best use with wired headphones:
                 
                 Image(systemName: "mic").font(Font.title.weight(.ultraLight))
                 Text("\(volume)").font(.system(size: 36)).foregroundColor(isEditing ? .red : .blue)
-                Slider(value: $volume, in: 0...3.0) // this one can go to eleven, one louder ;-) use careful!
+                Slider(value: $volume, in: 0...1.0) // this one can go to eleven, one louder ;-) use careful!
                 
                 Spacer().frame(height: 20)
                 Text("Latency: \(controller.latency * 1000) ms")

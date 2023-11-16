@@ -73,6 +73,10 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         ioData: UnsafeMutablePointer<AudioBufferList>) -> OSStatus
     {
         var err: OSStatus = noErr
+        if _rioUnit == nil{
+            return err
+        }
+       
         err = AudioUnitRender(_rioUnit!, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData)
         let ioPtr = UnsafeMutableAudioBufferListPointer(ioData)
         let mBufferL : AudioBuffer = ioPtr[0]
@@ -212,7 +216,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }
         
         DispatchQueue.main.async {
-            //self.resetChain()
+            self.resetChain()
             self.getDevices()
             self.updateView()
         }
