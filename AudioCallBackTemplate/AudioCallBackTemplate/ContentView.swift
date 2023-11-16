@@ -10,13 +10,13 @@ import SwiftUI
 struct ContentView: View {
     
     let text = """
-Best use with wired headphones:
+Use wired headphones:
 - Low latency (Bluetooth causes latency)
-- Avoid any feedback
+- Avoid feedback
 """
     
     @ObservedObject private var controller = AudioController()
-    @State private var volume = 0.8
+    @State private var volume = 0.5
     @State private var isEditing = false
     
     func setSpeaker(isSpeaker:Bool){
@@ -61,7 +61,7 @@ Best use with wired headphones:
                 }
                 
                 Spacer().frame(height: 30)
-                Text("isHeadphonesConnected: \(controller.isHeadphonesConnected.description)").font(.system(size: 16)).foregroundColor(.blue)
+                Text("Are headphones connected: \(controller.isHeadphonesConnected.description)").font(.system(size: 16)).foregroundColor(.blue)
 
                 Spacer().frame(height: 30)
                 Text(text).font(.system(size: 16)).foregroundColor(.gray)

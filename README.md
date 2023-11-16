@@ -16,7 +16,7 @@ On iPhone 12 we typically achieve round trip latencies under 4 ms using wired he
 The microphone sound is loud and clear.
 
 Please test always on hardware, audio is not working on the emulator.
-Best with wired headphones like Apple EarPods.
+Use wired headphones like Apple EarPods.
 Bluetooth causes latency.
 
 <img src="https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/master/AudioCallbackTemplate.png" alt="Audio Callback Template Screenshot" width="300" height="auto">

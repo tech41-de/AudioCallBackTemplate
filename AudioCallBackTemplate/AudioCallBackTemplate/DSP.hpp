@@ -48,7 +48,7 @@ public:
     
 private:
     double sr = 0.0;
-    double micLevel = 0.8;
+    double micLevel = 0.5;
 };
 
 #endif /* DSP_hpp */
