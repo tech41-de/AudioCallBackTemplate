@@ -15,7 +15,7 @@ Best use with wired headphones:
 - Avoid any feedback
 """
     
-    @State private var controller = AudioController()
+    @ObservedObject private var controller = AudioController()
     @State private var volume = 0.8
     @State private var isEditing = false
     
@@ -80,6 +80,3 @@ Best use with wired headphones:
     }
 }
 
-#Preview {
-    ContentView()
-}

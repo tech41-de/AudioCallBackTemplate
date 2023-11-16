@@ -12,12 +12,6 @@
 import AudioToolbox
 import AVFoundation
 
-class DataModel{
-   
-}
-
-
-
 @objc protocol AURenderCallbackDelegate {
     func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
         inTimeStamp: UnsafePointer<AudioTimeStamp>,
@@ -45,6 +39,7 @@ in
 
 @objc(AudioController)
 class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
+    
     @Published var inputDeviceName : String = ""
     @Published var latency = 0.0
     @Published var sampleRate = 48000
@@ -113,6 +108,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }catch{
             print(error.localizedDescription)
         }
+        updateView()
     }
 
     func isCurrentOutput(portType: AVAudioSession.Port) -> Bool {
@@ -214,9 +210,12 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             NSLog("Current route:\n")
             NSLog("%@\n", AVAudioSession.sharedInstance().currentRoute)
         }
-        resetChain()
-        getDevices()
-        updateView()
+        
+        DispatchQueue.main.async {
+            //self.resetChain()
+            self.getDevices()
+            self.updateView()
+        }
     }
     
     // Under rare circumstances the system terminates and restarts its media services daemon.
@@ -231,6 +230,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     }
     
     func resetChain(){
+
         audioChainIsBeingReconstructed = true
         usleep(25000) // required
         self.setupAudioChain()
@@ -262,6 +262,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             outputDeviceName =  sessionInstance.currentRoute.outputs.first!.portName
             outputDeviceId =  AVAudioSession.sharedInstance().currentRoute.outputs.first!.uid
         }
+        updateView()
     }
     
     private func setupAudioSession() {
