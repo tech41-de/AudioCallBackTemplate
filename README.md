@@ -19,7 +19,7 @@ Please test always on hardware, audio is not working on the emulator.
 Best with wired headphones like Apple EarPods.
 Bluetooth causes latency.
 
-![Audio CallBack Template](https://github.com/tech41-de/AudioCallBackTemplate/AudioCallBackTemplate.png)
+![Audio CallBack Template](https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/master/AudioCallbackTemplate.png)
 
 Drop me a line at: 
 mathias.dietrich@tech41.de
