@@ -243,7 +243,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             }
             _rioUnit = nil
             
-            usleep(25000) // required
+           // usleep(25000) // required
             self.setupAudioChain()
             self.startIOUnit()
         }catch{
