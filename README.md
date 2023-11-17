@@ -1,5 +1,5 @@
 # AudioCallBackTemplate
-Low Latency Audio Callback Xcode Template in Swift and C++
+Low Latency Audio Callback Xcode Template in Swift and C++ for IoS.
 
 This template can be used to build audio applications on IoS supporting SwiftUI and fast rendering of Audio DSP code in C++.
 The Audio Unit runs in the same process as the host App, which simplifies development.
@@ -20,10 +20,13 @@ Use wired headphones like Apple EarPods.
 Bluetooth causes latency.
 
 AudioController.swift takes care of abstracting the AVAudioSession and managing the audio devices
+
 DSP.h is where you implement the DSP logic of your app modifying or generating samples
+
 <img src="https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/master/AVAudioSession.png" alt="AVAudioSession Diagram" width="300" height="auto">
 
-Test GUI:
+Test GUI in iPhone:
+
 <img src="https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/master/AudioCallbackTemplate.png" alt="Audio Callback Template Screenshot" width="300" height="auto">
 
 
