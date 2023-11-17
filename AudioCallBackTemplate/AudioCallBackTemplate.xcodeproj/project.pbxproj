@@ -39,6 +39,7 @@
 		4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
 		4041DCC12B04F47200C6E1FE /* Wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wrapper.h; sourceTree = "<group>"; };
 		4041DCC22B04F51700C6E1FE /* Wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Wrapper.mm; sourceTree = "<group>"; };
+		40653CE42B076FAF00DE4DFB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		409051482B0511FC00189119 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4090514A2B05120800189119 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		409BE6AD2B06646A0071BE29 /* AudioCallbackTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AudioCallbackTemplate.png; path = ../AudioCallbackTemplate.png; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 				4041DCAD2B04EB3400C6E1FE /* AudioCallBackTemplate-Bridging-Header.h */,
 				4041DCC12B04F47200C6E1FE /* Wrapper.h */,
 				4041DCC22B04F51700C6E1FE /* Wrapper.mm */,
+				40653CE42B076FAF00DE4DFB /* module.modulemap */,
 			);
 			path = AudioCallBackTemplate;
 			sourceTree = "<group>";

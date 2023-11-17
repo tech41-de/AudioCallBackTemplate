@@ -12,6 +12,7 @@
 //
 import AudioToolbox
 import AVFoundation
+import DSP
 
 @objc protocol AURenderCallbackDelegate {
     func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -42,6 +43,8 @@ in
 @objc(AudioController)
 class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
 
+    var dsp = DSP() // DSP receives the render buffer
+    
     static let shared = AudioController()
     
     @Published var inputDeviceName : String = ""
@@ -71,8 +74,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     
     var _rioUnit: AudioUnit? = nil
     private(set) var audioChainIsBeingReconstructed: Bool = false
-    let wrapper = Wrapper()
-    
+
     override init() {
         super.init()
     }
@@ -102,7 +104,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             let dptrR = dataPointerR
             let sampleArrayL = dptr.assumingMemoryBound(to: Float32.self)
             let sampleArrayR = dptrR!.assumingMemoryBound(to: Float32.self)
-            wrapper.render(sampleArrayL, right: sampleArrayR, frames: Int32(count))
+            dsp.render(sampleArrayL, sampleArrayR, Int32(count))
         }
         return err
     }
@@ -113,7 +115,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     
     // Example of calling DSP code from the UI
     func setMicVolume(volume: Double){
-        wrapper.setVolume(volume)
+        dsp.setMicLevel(volume)
     }
     
     func setSpeaker(isSpeaker:Bool){
