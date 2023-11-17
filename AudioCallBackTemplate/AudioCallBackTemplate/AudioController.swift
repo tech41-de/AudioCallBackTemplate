@@ -30,7 +30,8 @@ private let AudioController_RenderCallback: AURenderCallback = {(inRefCon,
     -> OSStatus
 in
     let delegate = unsafeBitCast(inRefCon, to: AURenderCallbackDelegate.self)
-    let result = delegate.performRender(ioActionFlags,
+    let flags = UnsafeMutablePointer<AudioUnitRenderActionFlags>(bitPattern:1) // TODO fix this hack
+    let result = delegate.performRender(flags!,
         inTimeStamp: inTimeStamp,
         inBufNumber: inBufNumber,
         inNumberFrames: inNumberFrames,
@@ -88,8 +89,9 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         if audioChainIsBeingReconstructed{
             return err
         }
-       
-        err = AudioUnitRender(_rioUnit!, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData)
+
+        let uint32Pointer : UnsafeMutablePointer<UInt32>? = UnsafeMutablePointer<UInt32>.allocate(capacity: 1) // TODO fix this hack
+        err = AudioUnitRender(_rioUnit!, uint32Pointer, inTimeStamp, 1, inNumberFrames, ioData)
         let ioPtr = UnsafeMutableAudioBufferListPointer(ioData)
         let mBufferL : AudioBuffer = ioPtr[0]
         let mBufferR : AudioBuffer = ioPtr[1]
