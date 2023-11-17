@@ -15,7 +15,7 @@ Use wired headphones:
 - Avoid feedback
 """
     
-    @ObservedObject private var controller = AudioController()
+    @ObservedObject private var controller = AudioController.shared
     @State private var volume = 0.5
     @State private var isEditing = false
     

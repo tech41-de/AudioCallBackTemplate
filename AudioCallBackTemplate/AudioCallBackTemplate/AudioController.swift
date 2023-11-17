@@ -8,6 +8,7 @@
 //  aurioTouch
 //  Translated by OOPer in cooperation with shlab.jp, on 2015/1/31.
 //
+// Sample Rates - output select - C++ only - profiling
 //
 import AudioToolbox
 import AVFoundation
@@ -39,6 +40,8 @@ in
 
 @objc(AudioController)
 class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
+
+    static let shared = AudioController()
     
     @Published var inputDeviceName : String = ""
     @Published var latency = 0.0
