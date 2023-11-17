@@ -54,7 +54,18 @@ Use wired headphones:
                 .pickerStyle(.segmented).foregroundColor(.white).font(.system(size: 16))
                 
                 Text("Output Device").foregroundColor(.blue).font(.system(size: 16))
-                Text("\(controller.outputDeviceName)").font(.system(size: 26)).foregroundColor(.blue)
+                Picker("Output Device", selection: $controller.outputDeviceName) {
+                    if(controller.outputs.count > 0){
+                        ForEach(controller.outputs, id: \.self) { status in
+                            Text(status).foregroundColor(.white).font(.system(size: 16))
+                        }.onChange(of: controller.outputDeviceName) { _old, _name in
+                            controller.setOutputDevice(name:_name)
+                        }
+                    }else{
+                        Text("No Output Device?").foregroundColor(.white).font(.system(size: 16))
+                    }
+                }.pickerStyle(.segmented).foregroundColor(.white).font(.system(size: 16))
+               // Text("\(controller.outputDeviceName)").font(.system(size: 26)).foregroundColor(.blue)
     
                 Toggle("Speaker", isOn: $controller.isOnSpeaker).padding(.trailing, 5).onChange(of: controller.isOnSpeaker) {old,  _isOn in
                     setSpeaker(isSpeaker:controller.isOnSpeaker)

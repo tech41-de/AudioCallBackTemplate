@@ -8,7 +8,7 @@
 //  aurioTouch
 //  Translated by OOPer in cooperation with shlab.jp, on 2015/1/31.
 //
-// Sample Rates - output select - C++ only - profiling
+// output select  - profiling
 //
 import AudioToolbox
 import AVFoundation
@@ -131,6 +131,9 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
 
     func isCurrentOutput(portType: AVAudioSession.Port) -> Bool {
         AVAudioSession.sharedInstance().currentRoute.outputs.contains(where: { $0.portType == portType })
+    }
+    
+    func setOutputDevice(name:String){
     }
     
     func setInputDevice(name:String){
