@@ -284,7 +284,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             // we are going to play and record so we pick that category
             do {
                 if #available(iOS 10.0, *) {
-                    try sessionInstance.setCategory(.playAndRecord,mode: .default,  options: [.mixWithOthers, .allowBluetoothA2DP])
+                    try sessionInstance.setCategory(.playAndRecord,mode: .default,  options: [.mixWithOthers, .allowBluetoothA2DP])  //.allowBluetooth
                 } else {
                     try sessionInstance.setCategory(.playAndRecord)
                 }
