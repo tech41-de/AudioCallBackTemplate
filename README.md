@@ -19,7 +19,19 @@ Please test always on hardware, audio is not working on the emulator.
 Use wired headphones like Apple EarPods.
 Bluetooth causes latency.
 
+AudioController.swift takes care of abstracting the AVAudioSession and managing the audio devices
+DSP.h is where you implement the DSP logic of your app modifying or generating samples
+<img src="https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/master/AVAudioSession.png" alt="AVAudioSession Diagram" width="300" height="auto">
+
+Test GUI:
 <img src="https://raw.githubusercontent.com/tech41-de/AudioCallBackTemplate/master/AudioCallbackTemplate.png" alt="Audio Callback Template Screenshot" width="300" height="auto">
+
+
+To use in your project:
+- Add the file AudioController.swift to your project
+- In Xcode enable C++ in the Swift Compiler (Targets, Build Settings, Swift Compiler - Language, C++ and Objective-C Interoperability)
+- Add a Bridging Header to your project (or rename AudioCallBackTemplate-Bridging-Header.h to fit your project) and make sure there is a referencde to it in Xcode Targets, Build Settings, Swift Compiler - General, Objective-C Bridging Header)
+- Add the DSP.h file to your project and implement the render callback
 
 Drop me a line at: mathias.dietrich@tech41.de
 

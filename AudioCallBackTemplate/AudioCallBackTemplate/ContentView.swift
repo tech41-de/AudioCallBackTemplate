@@ -77,7 +77,6 @@ Use wired headphones:
 
                 Spacer().frame(height: 30)
                 Text(text).font(.system(size: 16)).foregroundColor(.gray)
-                Button("tyblock 32", systemImage: "arrow.up", action: go)
                     
             }.onChange(of: volume) {
                 controller.setMicVolume(volume: volume)

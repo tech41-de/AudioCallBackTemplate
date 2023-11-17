@@ -37,6 +37,7 @@
 		4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumTypes+Conversion.swift"; sourceTree = "<group>"; };
 		4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
 		40653CE42B076FAF00DE4DFB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		40653CE62B07749B00DE4DFB /* AVAudioSession.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AVAudioSession.png; path = ../AVAudioSession.png; sourceTree = "<group>"; };
 		409051482B0511FC00189119 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4090514A2B05120800189119 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		409BE6AD2B06646A0071BE29 /* AudioCallbackTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AudioCallbackTemplate.png; path = ../AudioCallbackTemplate.png; sourceTree = "<group>"; };
@@ -57,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				409BE6AD2B06646A0071BE29 /* AudioCallbackTemplate.png */,
+				40653CE62B07749B00DE4DFB /* AVAudioSession.png */,
 				409051482B0511FC00189119 /* LICENSE */,
 				4090514A2B05120800189119 /* README.md */,
 				4041DC9C2B04E6A400C6E1FE /* AudioCallBackTemplate */,
