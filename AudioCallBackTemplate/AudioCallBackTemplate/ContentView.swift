@@ -82,9 +82,9 @@ Use wired headphones:
                 controller.setMicVolume(volume: volume)
             }
             .padding().onAppear(){
+                controller.preferedFrames = 64
+                controller.preferedSampleRate = 48000 // this starts AVSession
                 controller.setup()
-
-                //controller.preferedFrames = 32
             }
         }.frame(maxWidth:.infinity, maxHeight:.infinity).background(.black)
     }

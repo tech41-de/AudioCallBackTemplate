@@ -51,13 +51,10 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     @Published var latency = 0.0
     @Published var inputLatency = 0.0
     @Published var outputLatency = 0.0
-    @Published var sampleRate = 48000
+    @Published var sampleRate = 48000 // 48000
     @Published var frames = 0
-    @Published var preferedFrames = 64{
-        didSet{
-            reset()
-        }
-    }
+    @Published var preferedFrames = 64
+    @Published var preferedSampleRate = 48000
     @Published var isOnSpeaker = false
     @Published var isHeadphonesConnected = false
     
@@ -306,7 +303,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             
             do {
                 // set the session's sample rate
-                try sessionInstance.setPreferredSampleRate(48000) // Samples per second
+                try sessionInstance.setPreferredSampleRate(Double(preferedSampleRate)) // Samples per second
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session's preferred sample rate")
             } catch {
