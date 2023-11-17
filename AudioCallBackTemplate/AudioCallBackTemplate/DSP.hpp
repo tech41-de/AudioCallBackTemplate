@@ -13,8 +13,13 @@
 class DSP{
     
 public:
-    void setup(double sampleRate){
+    
+    /*
+     Setup can be called again  in case sample rate or expected blocksize changes when the user changes device
+     */
+    void setup(double sampleRate, int expectedBlocksize){
         sr = sampleRate;
+        blocksize = expectedBlocksize;
     }
     
     void setMicLevel(double volume){
@@ -26,9 +31,10 @@ public:
      You have only a few milliseconds time depending on buffersize and sample rate.
      Calculate: seconds = frames / samplerate
      For example 64 frames at 48000 sample rate gives 0.9583 msec to deliver all samples in this callback
+     Blocksize can vary on a render call and can be different to expected block size
      */
-    void render(float * bufferL, float * bufferR, int frames){
-        for (int i=0; i<frames; ++i) {
+    void render(float * bufferL, float * bufferR, int blocksize){
+        for (int i=0; i<blocksize; ++i) {
             float sample = bufferL[i] * micLevel; //
             if(bufferL[i] <= 1.0 || bufferL[i] >= -1.0){ // render guard - not absolutely necxcesary if the DSP is correct staying in bounds -1.0 to 1.0
                 bufferL[i] = sample;
@@ -48,6 +54,7 @@ public:
     
 private:
     double sr = 0.0;
+    int blocksize = 0;
     double micLevel = 0.5;
 };
 

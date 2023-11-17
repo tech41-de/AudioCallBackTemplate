@@ -18,7 +18,6 @@
 		4041DCBB2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */; };
 		4041DCBD2B04F0ED00C6E1FE /* NumTypes+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */; };
 		4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */; };
-		4041DCC32B04F51700C6E1FE /* Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4041DCC22B04F51700C6E1FE /* Wrapper.mm */; };
 		409051492B0511FC00189119 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 409051482B0511FC00189119 /* LICENSE */; };
 /* End PBXBuildFile section */
 
@@ -37,8 +36,6 @@
 		4041DCBA2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAStreamBasicDescription.swift; sourceTree = "<group>"; };
 		4041DCBC2B04F0EC00C6E1FE /* NumTypes+Conversion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NumTypes+Conversion.swift"; sourceTree = "<group>"; };
 		4041DCBE2B04F13B00C6E1FE /* OOPExceptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOPExceptions.swift; sourceTree = "<group>"; };
-		4041DCC12B04F47200C6E1FE /* Wrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wrapper.h; sourceTree = "<group>"; };
-		4041DCC22B04F51700C6E1FE /* Wrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Wrapper.mm; sourceTree = "<group>"; };
 		40653CE42B076FAF00DE4DFB /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
 		409051482B0511FC00189119 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4090514A2B05120800189119 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -86,8 +83,6 @@
 				4041DCA32B04E6A700C6E1FE /* Preview Content */,
 				4041DCAF2B04EB3400C6E1FE /* DSP.hpp */,
 				4041DCAD2B04EB3400C6E1FE /* AudioCallBackTemplate-Bridging-Header.h */,
-				4041DCC12B04F47200C6E1FE /* Wrapper.h */,
-				4041DCC22B04F51700C6E1FE /* Wrapper.mm */,
 				40653CE42B076FAF00DE4DFB /* module.modulemap */,
 			);
 			path = AudioCallBackTemplate;
@@ -186,7 +181,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4041DCC32B04F51700C6E1FE /* Wrapper.mm in Sources */,
 				4041DCA02B04E6A400C6E1FE /* ContentView.swift in Sources */,
 				4041DCBB2B04EFEB00C6E1FE /* CAStreamBasicDescription.swift in Sources */,
 				4041DCBF2B04F13B00C6E1FE /* OOPExceptions.swift in Sources */,

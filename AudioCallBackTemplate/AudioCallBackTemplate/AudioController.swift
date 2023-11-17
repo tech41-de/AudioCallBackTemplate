@@ -136,6 +136,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     }
     
     func setOutputDevice(name:String){
+        // TODO
     }
     
     func setInputDevice(name:String){
@@ -338,6 +339,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
                 latency = inputLatency + outputLatency
                 sampleRate = Int(sessionInstance.sampleRate)
                 frames = Int(sessionInstance.ioBufferDuration * Double(sampleRate))
+                dsp.setup(Double(sampleRate), Int32(frames))
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session active")
             } catch {
