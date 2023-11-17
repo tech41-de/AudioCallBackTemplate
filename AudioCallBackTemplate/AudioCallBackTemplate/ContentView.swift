@@ -35,6 +35,7 @@ Use wired headphones:
                 
                 Spacer().frame(height: 20)
                 Text("Latency: \(controller.latency * 1000) ms")
+                Text("Frames: \(controller.frames)")
                 Text("Sample Rate: " + String(controller.sampleRate))
                 
                 Divider()
@@ -65,13 +66,21 @@ Use wired headphones:
 
                 Spacer().frame(height: 30)
                 Text(text).font(.system(size: 16)).foregroundColor(.gray)
+                Button("tyblock 32", systemImage: "arrow.up", action: go)
+                    
             }.onChange(of: volume) {
                 controller.setMicVolume(volume: volume)
             }
             .padding().onAppear(){
-                controller.updateView()
+                controller.setup()
+
+                //controller.preferedFrames = 32
             }
         }.frame(maxWidth:.infinity, maxHeight:.infinity).background(.black)
+    }
+    
+    func go(){
+        controller.preferedFrames = 128
     }
 }
 

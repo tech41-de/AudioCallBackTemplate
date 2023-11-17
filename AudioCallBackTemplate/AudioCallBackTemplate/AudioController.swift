@@ -45,7 +45,15 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     
     @Published var inputDeviceName : String = ""
     @Published var latency = 0.0
+    @Published var inputLatency = 0.0
+    @Published var outputLatency = 0.0
     @Published var sampleRate = 48000
+    @Published var frames = 0
+    @Published var preferedFrames = 64{
+        didSet{
+            reset()
+        }
+    }
     @Published var isOnSpeaker = false
     @Published var isHeadphonesConnected = false
     
@@ -54,6 +62,8 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     @Published var outputDeviceId : String = ""
     @Published var inputs : [String] = []
     @Published var outputs : [String] = []
+    
+    var isSetup = false
     
     // Configure the audio session
     let sessionInstance = AVAudioSession.sharedInstance()
@@ -64,7 +74,6 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     
     override init() {
         super.init()
-        self.setupAudioChain()
     }
     
     // Render callback function - here we receive the samples to pass on to our DSP code
@@ -218,7 +227,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }
         
         DispatchQueue.main.async {
-            self.resetChain()
+            self.reset()
             self.getDevices()
             self.updateView()
         }
@@ -227,28 +236,12 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     // Under rare circumstances the system terminates and restarts its media services daemon.
     @objc func handleMediaServerReset(_ notification: Notification) {
         NSLog("Media server has reset")
-        resetChain()
+        reset()
     }
     
     func hasHeadphones(in routeDescription: AVAudioSessionRouteDescription) -> Bool {
         // Filter the outputs to only those with a port type of headphones.
         return !routeDescription.outputs.filter({$0.portType == .headphones}).isEmpty
-    }
-    
-    func resetChain(){
-        if audioChainIsBeingReconstructed {
-            return
-        }
-        audioChainIsBeingReconstructed = true
-        if(_rioUnit != nil){
-            stopIOUnit()
-        }
-        _rioUnit = nil
-        
-       // usleep(25000) // required
-        self.setupAudioChain()
-        self.startIOUnit()
-        audioChainIsBeingReconstructed = false
     }
     
     func getDevices(){
@@ -293,7 +286,8 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
                 fatalError()
             }
             
-            let bufferDuration: TimeInterval = 1.0 / 1000.0 // Secconds
+            let duration = Double(preferedFrames) / Double(sampleRate)
+            let bufferDuration: TimeInterval =  duration //1.0/ 1000.0 // Secconds
             do {
                 try sessionInstance.setPreferredIOBufferDuration(bufferDuration)
             } catch let error as NSError {
@@ -332,8 +326,11 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             do {
                 // activate the audio session
                 try sessionInstance.setActive(true)
-                latency = sessionInstance.inputLatency + sessionInstance.outputLatency
+                inputLatency = sessionInstance.inputLatency
+                outputLatency = sessionInstance.outputLatency
+                latency = inputLatency + outputLatency
                 sampleRate = Int(sessionInstance.sampleRate)
+                frames = Int(sessionInstance.ioBufferDuration * Double(sampleRate))
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session active")
             } catch {
@@ -349,7 +346,6 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     private func setupIOUnit() {
         do {
             // Create a new instance of AURemoteIO
-            
             var desc = AudioComponentDescription(
                 componentType: OSType(kAudioUnitType_Output),
                 componentSubType: OSType(kAudioUnitSubType_RemoteIO),
@@ -358,7 +354,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
                 componentFlagsMask: 0)
             
             let comp = AudioComponentFindNext(nil, &desc)
-            try XExceptionIfError(AudioComponentInstanceNew(comp!, &self._rioUnit), "couldn't create a new instance of AURemoteIO")
+            try XExceptionIfError(AudioComponentInstanceNew(comp!, &self._rioUnit), "couldn't create AURemoteIO")
             
             //  Enable input and output on AURemoteIO
             //  Input is enabled on the input scope of the input element
@@ -367,8 +363,8 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &two, SizeOf32(two)), "could not enable input on AURemoteIO")
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &two, SizeOf32(two)), "could not enable output on AURemoteIO")
             
-
             var ioFormat = CAStreamBasicDescription(sampleRate: Double(sampleRate), numChannels: 2, pcmf: .float32, isInterleaved: false)
+            
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat)), "couldn't set the input client format on AURemoteIO")
             try XExceptionIfError(AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat)), "couldn't set the output client format on AURemoteIO")
             
@@ -396,12 +392,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
             NSLog("Unknown error returned from setupIOUnit")
         }
     }
-    
-    private func setupAudioChain() {
-        self.setupAudioSession()
-        self.setupIOUnit()
-    }
-    
+
     @discardableResult
     func startIOUnit() -> Double {
         let err = AudioOutputUnitStart(_rioUnit!)
@@ -417,6 +408,32 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     }
     
     var sessionSampleRate: Double {
-        return AVAudioSession.sharedInstance().sampleRate
+        return sessionInstance.sampleRate
+    }
+    
+    public func setup() {
+        if (isSetup){ // allowed to call only once from extern - call reset after that
+            return
+        }
+        isSetup = true
+        self.setupAudioSession()
+        self.setupIOUnit()
+        self.updateView()
+    }
+    
+    public func reset(){
+        if audioChainIsBeingReconstructed {
+            return
+        }
+        audioChainIsBeingReconstructed = true
+        if(_rioUnit != nil){
+            stopIOUnit()
+        }
+        _rioUnit = nil
+        isSetup = false
+        self.setup()
+        self.startIOUnit()
+        audioChainIsBeingReconstructed = false
+        self.updateView()
     }
 }
