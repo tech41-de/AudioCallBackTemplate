@@ -1,0 +1,401 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		40A2AE782B079EEF00AC2A0E /* AudioLibExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A2AE772B079EEF00AC2A0E /* AudioLibExampleApp.swift */; };
+		40A2AE7A2B079EEF00AC2A0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A2AE792B079EEF00AC2A0E /* ContentView.swift */; };
+		40A2AE7C2B079EF100AC2A0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40A2AE7B2B079EF100AC2A0E /* Assets.xcassets */; };
+		40A2AE7F2B079EF100AC2A0E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40A2AE7E2B079EF100AC2A0E /* Preview Assets.xcassets */; };
+		40A2AE942B07A93200AC2A0E /* MIDIAdapter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40A2AE922B07A93200AC2A0E /* MIDIAdapter.mm */; };
+		40A2AEA02B07AADF00AC2A0E /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 40A2AE9F2B07AADF00AC2A0E /* AudioKit */; };
+		40A2AEA22B07AB6300AC2A0E /* MidiListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A2AEA12B07AB6300AC2A0E /* MidiListener.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		40A2AE742B079EEF00AC2A0E /* AudioLibExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioLibExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		40A2AE772B079EEF00AC2A0E /* AudioLibExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioLibExampleApp.swift; sourceTree = "<group>"; };
+		40A2AE792B079EEF00AC2A0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		40A2AE7B2B079EF100AC2A0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40A2AE7E2B079EF100AC2A0E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		40A2AE8F2B07A86300AC2A0E /* Tech41AudioLib-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tech41AudioLib-Bridging-Header.h"; sourceTree = "<group>"; };
+		40A2AE912B07A93200AC2A0E /* SingleProducerSingleConsumerQueue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SingleProducerSingleConsumerQueue.hpp; sourceTree = "<group>"; };
+		40A2AE922B07A93200AC2A0E /* MIDIAdapter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MIDIAdapter.mm; sourceTree = "<group>"; };
+		40A2AE932B07A93200AC2A0E /* MIDIAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIAdapter.h; sourceTree = "<group>"; };
+		40A2AEA12B07AB6300AC2A0E /* MidiListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidiListener.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		40A2AE712B079EEF00AC2A0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A2AEA02B07AADF00AC2A0E /* AudioKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		40A2AE6B2B079EEF00AC2A0E = {
+			isa = PBXGroup;
+			children = (
+				40A2AE762B079EEF00AC2A0E /* AudioLibExample */,
+				40A2AE752B079EEF00AC2A0E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		40A2AE752B079EEF00AC2A0E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40A2AE742B079EEF00AC2A0E /* AudioLibExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40A2AE762B079EEF00AC2A0E /* AudioLibExample */ = {
+			isa = PBXGroup;
+			children = (
+				40A2AEA12B07AB6300AC2A0E /* MidiListener.swift */,
+				40A2AE772B079EEF00AC2A0E /* AudioLibExampleApp.swift */,
+				40A2AE792B079EEF00AC2A0E /* ContentView.swift */,
+				40A2AE7B2B079EF100AC2A0E /* Assets.xcassets */,
+				40A2AE7D2B079EF100AC2A0E /* Preview Content */,
+				40A2AE8F2B07A86300AC2A0E /* Tech41AudioLib-Bridging-Header.h */,
+				40A2AE902B07A91800AC2A0E /* Realtime */,
+			);
+			path = AudioLibExample;
+			sourceTree = "<group>";
+		};
+		40A2AE7D2B079EF100AC2A0E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				40A2AE7E2B079EF100AC2A0E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		40A2AE902B07A91800AC2A0E /* Realtime */ = {
+			isa = PBXGroup;
+			children = (
+				40A2AE932B07A93200AC2A0E /* MIDIAdapter.h */,
+				40A2AE922B07A93200AC2A0E /* MIDIAdapter.mm */,
+				40A2AE912B07A93200AC2A0E /* SingleProducerSingleConsumerQueue.hpp */,
+			);
+			name = Realtime;
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		40A2AE732B079EEF00AC2A0E /* AudioLibExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40A2AE822B079EF100AC2A0E /* Build configuration list for PBXNativeTarget "AudioLibExample" */;
+			buildPhases = (
+				40A2AE702B079EEF00AC2A0E /* Sources */,
+				40A2AE712B079EEF00AC2A0E /* Frameworks */,
+				40A2AE722B079EEF00AC2A0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioLibExample;
+			packageProductDependencies = (
+				40A2AE9F2B07AADF00AC2A0E /* AudioKit */,
+			);
+			productName = AudioLibExample;
+			productReference = 40A2AE742B079EEF00AC2A0E /* AudioLibExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40A2AE6C2B079EEF00AC2A0E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					40A2AE732B079EEF00AC2A0E = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 40A2AE6F2B079EEF00AC2A0E /* Build configuration list for PBXProject "AudioLibExample" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 40A2AE6B2B079EEF00AC2A0E;
+			packageReferences = (
+				40A2AE9E2B07AADF00AC2A0E /* XCRemoteSwiftPackageReference "AudioKit" */,
+			);
+			productRefGroup = 40A2AE752B079EEF00AC2A0E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				40A2AE732B079EEF00AC2A0E /* AudioLibExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		40A2AE722B079EEF00AC2A0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A2AE7F2B079EF100AC2A0E /* Preview Assets.xcassets in Resources */,
+				40A2AE7C2B079EF100AC2A0E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40A2AE702B079EEF00AC2A0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40A2AE942B07A93200AC2A0E /* MIDIAdapter.mm in Sources */,
+				40A2AE7A2B079EEF00AC2A0E /* ContentView.swift in Sources */,
+				40A2AEA22B07AB6300AC2A0E /* MidiListener.swift in Sources */,
+				40A2AE782B079EEF00AC2A0E /* AudioLibExampleApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		40A2AE802B079EF100AC2A0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		40A2AE812B079EF100AC2A0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		40A2AE832B079EF100AC2A0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AudioLibExample/Preview Content\"";
+				DEVELOPMENT_TEAM = W2V29MV569;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.tech41.audiocallback.changeme.AudioLibExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioLibExample/Tech41AudioLib-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		40A2AE842B079EF100AC2A0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AudioLibExample/Preview Content\"";
+				DEVELOPMENT_TEAM = W2V29MV569;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.tech41.audiocallback.changeme.AudioLibExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "AudioLibExample/Tech41AudioLib-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40A2AE6F2B079EEF00AC2A0E /* Build configuration list for PBXProject "AudioLibExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40A2AE802B079EF100AC2A0E /* Debug */,
+				40A2AE812B079EF100AC2A0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40A2AE822B079EF100AC2A0E /* Build configuration list for PBXNativeTarget "AudioLibExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40A2AE832B079EF100AC2A0E /* Debug */,
+				40A2AE842B079EF100AC2A0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		40A2AE9E2B07AADF00AC2A0E /* XCRemoteSwiftPackageReference "AudioKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AudioKit/AudioKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		40A2AE9F2B07AADF00AC2A0E /* AudioKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40A2AE9E2B07AADF00AC2A0E /* XCRemoteSwiftPackageReference "AudioKit" */;
+			productName = AudioKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 40A2AE6C2B079EEF00AC2A0E /* Project object */;
+}

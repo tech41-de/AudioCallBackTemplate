@@ -57,13 +57,15 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     @Published var preferedSampleRate = 48000
     @Published var isOnSpeaker = false
     @Published var isHeadphonesConnected = false
-    
+    @Published var inputPortType: AVAudioSession.Port = .builtInMic
+    @Published var outputPortType: AVAudioSession.Port = .builtInSpeaker
     @Published var inputDeviceId : String = ""
     @Published var outputDeviceName : String = ""
     @Published var outputDeviceId : String = ""
     @Published var inputs : [String] = []
     @Published var outputs : [String] = []
     
+    var isGettingDevices = false
     var isSetup = false
     
     // Configure the audio session
@@ -250,8 +252,13 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
     }
     
     func getDevices(){
+        if isGettingDevices {
+            return
+        }
+        isGettingDevices = true
         inputs.removeAll()
         guard let availableInputs = AVAudioSession.sharedInstance().availableInputs else {
+            isGettingDevices = false
             print("No inputs available ")
             return
         }
@@ -262,6 +269,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         if(sessionInstance.currentRoute.inputs.first != nil){
             inputDeviceName =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.portName
             inputDeviceId =  AVAudioSession.sharedInstance().currentRoute.inputs.first!.uid
+            inputPortType = sessionInstance.currentRoute.inputs.first!.portType
         }
         
         outputs.removeAll()
@@ -272,10 +280,15 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         if(AVAudioSession.sharedInstance().currentRoute.outputs.first != nil){
             outputDeviceName =  sessionInstance.currentRoute.outputs.first!.portName
             outputDeviceId =  AVAudioSession.sharedInstance().currentRoute.outputs.first!.uid
+            outputPortType = sessionInstance.currentRoute.outputs.first!.portType
         }
         updateView()
+        isGettingDevices = false
     }
     
+    /**************************************************************************************************
+     AV Audio Session
+     ************************************************************************************************************************************/
     private func setupAudioSession() {
         do {
             // we are going to play and record so we pick that category
@@ -336,6 +349,8 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
                 latency = inputLatency + outputLatency
                 sampleRate = Int(sessionInstance.sampleRate)
                 frames = Int(sessionInstance.ioBufferDuration * Double(sampleRate))
+                inputPortType = sessionInstance.currentRoute.inputs.first!.portType
+                outputPortType = sessionInstance.currentRoute.outputs.first!.portType
                 dsp.setup(Double(sampleRate), Int32(frames))
             } catch let error as NSError {
                 try XExceptionIfError(error, "couldn't set session active")
@@ -349,6 +364,7 @@ class AudioController: NSObject, ObservableObject, AURenderCallbackDelegate {
         }
     }
     
+    // Audio Unit
     private func setupIOUnit() {
         do {
             // Create a new instance of AURemoteIO
